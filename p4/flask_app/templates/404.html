@@ -1,0 +1,12 @@
+{% extends "header.html" %} {% block content %}
+   <div class="min-h-screen flex items-center justify-center">
+      <div class="text-center">
+         <p class="main-title">404<p>
+         <p class="text-xl mb-8">Oops! The page you're looking for doesn't exist :(</p>
+         <br>
+         <a href="{{ url_for('movies.index') }}" class="review-button">Return to homepage</a>
+      </div>
+   </div>
+</html>
+
+{% endblock %}

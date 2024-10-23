@@ -3,30 +3,26 @@ from datetime import datetime
 from . import db, login_manager
 
 
-# TODO: implement
 @login_manager.user_loader
 def load_user(user_id):
-    pass
+    return User.objects(username=user_id).first()
 
-# TODO: implement fields
+
 class User(db.Document, UserMixin):
-    username = None
-    email = None
-    password = None
-    profile_pic = None
+    username = db.StringField(required=True, unique=True, min_length=1, max_length=40)
+    email = db.EmailField(required=True, unique=True)
+    password = db.StringField(required=True)
+    profile_pic = db.ImageField()
 
     # Returns unique string identifying our object
     def get_id(self):
-        # TODO: implement
-        pass
+        return self.username
 
 
-# TODO: implement fields
 class Review(db.Document):
-    commenter = None
-    content = None
-    date = None
-    imdb_id = None
-    movie_title = None
-    #image = db.StringField()
-    #Uncomment when other fields are ready for review pictures
+    commenter = db.ReferenceField(User, required=True)
+    content = db.StringField(required=True, min_length=5, max_length=500)
+    date = db.StringField(required=True)
+    imdb_id = db.StringField(required=True, min_length=9, max_length=9)
+    movie_title = db.StringField(required=True, min_length=1, max_length=100)
+    image = db.StringField()

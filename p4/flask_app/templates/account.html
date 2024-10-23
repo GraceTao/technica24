@@ -6,7 +6,7 @@
         <img class="rounded-2xl h-24 w-24" src="data:image/png;base64,{{image}}" alt="image">
     {% endif %}
 
-    {# TODO: Greeting (must include the current user's username) #}
+    <p class="text-xl">Welcome, {{current_user.username}}!</p>
 
 </div>
 
@@ -53,6 +53,6 @@
 </div>
 
 <div class="flex justify-center">
-    {# TODO: Link to see all of the current user's reviews. #}
+    <a class="my-5 mr-5 ml-0 navlink" href="{{ url_for('movies.user_detail', username=current_user.username) }}">Reviews</a>
 </div>
 {% endblock %}

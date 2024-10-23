@@ -52,23 +52,24 @@ class RegistrationForm(FlaskForm):
             raise ValidationError("Email is taken")
 
 
-# TODO: implement fields
 class LoginForm(FlaskForm):
-    username = None
-    password = None
-    submit = None
+    username = StringField("Username", validators=[InputRequired()])
+    password = PasswordField("Password", validators=[InputRequired()])
+    submit = SubmitField("Log In")
 
 
-# TODO: implement
 class UpdateUsernameForm(FlaskForm):
-    username = None
-    submit_username = None 
+    username = StringField(
+        "Username", validators=[InputRequired(), Length(min=1, max=40)]
+    )
+    submit_username = SubmitField("Update") 
 
-    # TODO: implement
     def validate_username(self, username):
-        pass
+        user = User.objects(username=username.data).first()
+        if user is not None:
+            raise ValidationError("Username is taken")
 
-# TODO: implement
+
 class UpdateProfilePicForm(FlaskForm):
-    picture = None
-    submit_picture = None
+    picture = FileField("Upload image", validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'Images only!')])
+    submit_picture = SubmitField("Upload")
