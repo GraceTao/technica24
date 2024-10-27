@@ -8,7 +8,7 @@ from ..forms import CommentForm, SearchForm
 from ..models import User, Comment
 from ..utils import current_time
 
-import requests
+import requests, os
 import openai
 import json, folium
 from flask import Markup
@@ -159,7 +159,7 @@ def generate_text(prompt, api_key):
     return ret
 
 def get_description(species_name):
-    api_key = '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'
+    api_key = os.getenv('OPENAI_KEY')
     prompt = "The species is " + species_name
     prompt += ''' We are looking at the species Brief description of species along with picture
           Where is the species originally from (country/region)?
@@ -169,13 +169,12 @@ def get_description(species_name):
         Organizations or charities to donate to
         Please include their links for each
 '''
-
     # Generate text based on the prompt
     return generate_text(prompt, api_key)["response"]
     
 def get_liked_species_locations(species_list):
     countries = []
-    token = "9bb4facb6d23f48efbf424bb05c0c1ef1cf6f468393bc745d42179ac4aca5fee"
+    token = os.getenv('IUCN_KEY')
     for species in species_list:
         url = f"https://apiv3.iucnredlist.org/api/v3/species/countries/name/{species.replace(' ', '%20')}?token={token}"  # Update to the actual endpoint from the docs
 

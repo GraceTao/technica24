@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, url_for, render_template, flash, request
 from flask_login import current_user, login_required, login_user, logout_user
-import base64
+import base64, os
 from io import BytesIO
 from .. import bcrypt
 from werkzeug.utils import secure_filename
@@ -8,7 +8,7 @@ from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm, UpdateProfi
 from ..models import User
 from propelauth_flask import init_auth
 
-api_key = "e878a5b9d5426138e344d22c10701edc195b8b2cd8586fb5cfb536c327258249747d01a567413e096999ab8589629152"
+api_key = os.getenv('PROPELAUTH_KEY')
 auth_url = "https://382477484.propelauthtest.com"
 auth = init_auth(auth_url, api_key)
 
@@ -62,41 +62,6 @@ def logout():
         logout_user()
 
         return redirect(url_for('species.index'))
-
-
-# @users.route("/account", methods=["GET", "POST"])
-# @login_required
-# def account():
-    
-#     update_username_form = UpdateUsernameForm()
-#     update_profile_pic_form = UpdateProfilePicForm()
-#     image = None
-#     if request.method == "POST":
-#         if update_username_form.submit_username.data and update_username_form.validate():
-#             current_user.modify(username=update_username_form.username.data)
-#             current_user.save()
-#             return redirect(url_for('users.account'))
-
-#         if update_profile_pic_form.submit_picture.data and update_profile_pic_form.validate():
-#             img = update_profile_pic_form.picture.data
-#             filename = secure_filename(img.filename)
-#             content_type = f'images/{filename[-3:]}'
-
-#             if current_user.profile_pic.get() is None:
-#                 current_user.profile_pic.put(img.stream, content_type=content_type)
-#             else:
-#                 current_user.profile_pic.replace(img.stream, content_type=content_type)
-            
-#             current_user.save()
-#             return redirect(url_for('users.account'))
-        
-#     bytes_im = BytesIO(current_user.profile_pic.read())
-#     image = base64.b64encode(bytes_im.getvalue()).decode() if bytes_im else None
-    
-#     return render_template('account.html', 
-#                            image=image, 
-#                            update_username_form=update_username_form, 
-#                            update_profile_pic_form=update_profile_pic_form)
 
 
 @users.route("/account", methods=["GET", "POST"])
