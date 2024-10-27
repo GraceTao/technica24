@@ -23,7 +23,7 @@ class SearchForm(FlaskForm):
     submit = SubmitField("Search")
 
 
-class MovieReviewForm(FlaskForm):
+class CommentForm(FlaskForm):
     text = TextAreaField(
         "Comment", validators=[InputRequired(), Length(min=5, max=500)]
     )
@@ -76,4 +76,4 @@ class UpdateProfilePicForm(FlaskForm):
 
 class ReferFriendForm(FlaskForm):
    friend_email = StringField('Friend\'s Email', validators=[InputRequired(), Email()])
-   submit_referral = SubmitField('Refer a Friend')
+   submit_referral = SubmitField('Share your activity')

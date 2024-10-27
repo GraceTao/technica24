@@ -5,9 +5,14 @@
   {% if species_of_the_day %}
   <div>
     <h2 class="main-title">
-      Species of the Day: <b>{{ species_of_the_day.scientific_name }}</b>
+      Endangered Species of the Day: <b>{{ species_of_the_day.scientific_name }}</b>
     </h2>
   </div>
+  {% endif %}
+  <br>
+  <br>
+  {% if map %}
+  <div>{{ map | safe }}</div>
   {% endif %}
 </div>
 {% endblock %}

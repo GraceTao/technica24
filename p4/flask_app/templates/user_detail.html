@@ -14,14 +14,14 @@
     <table class="table-auto w-full border-collapse">
         <tr>
             <th class="border px-4 py-2">Date</th>
-            <th class="border px-4 py-2">Movie</th>
-            <th class="border px-4 py-2">Content</th>
+            <th class="border px-4 py-2">Species</th>
+            <th class="border px-4 py-2">Comment</th>
             </tr>
-        {% for review in reviews %}
+        {% for comment in comments %}
         <tr class="review-content">
-            <th class="border px-4 py-2">{{review.date}}</th>
-            <th class="border px-4 py-2">{{review.movie_title}}</th>
-            <th class="review-content">{{review.content}}</th>
+            <th class="border px-4 py-2">{{comment.date}}</th>
+            <th class="border px-4 py-2">{{comment.species_name}}</th>
+            <th class="review-content">{{comment.content}}</th>
         </tr>
 
         {% endfor %}

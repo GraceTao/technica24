@@ -4,12 +4,16 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash
 from flask_login import current_user
 
 from .. import species_client
-from ..forms import MovieReviewForm, SearchForm
+from ..forms import CommentForm, SearchForm
 from ..models import User, Comment
 from ..utils import current_time
 
 import requests
 import openai
+import json, folium
+from flask import Markup
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut
 
 
 species = Blueprint("species", __name__)
@@ -24,7 +28,7 @@ def get_b64_img(username):
 
 @species.route("/", methods=["GET", "POST"])
 def index():
-
+    m = None
     searchform = SearchForm()
 
     if searchform.validate_on_submit():
@@ -32,7 +36,27 @@ def index():
     
     species = species_client.get_random_species()
 
-    return render_template("index.html", form=searchform, species_of_the_day=species)
+    if current_user.is_authenticated:
+        countries = get_liked_species_locations(current_user.liked_species)
+        print(current_user.liked_species)
+        m = folium.Map(zoom_start=3)
+        for species_data in countries:
+        # Add points for countries with the species
+            for entry in species_data['result']:
+                country = entry['country']
+                presence = entry['presence']
+                if presence == 'Extant':
+                    coords = get_coordinates(country)
+                    if coords:
+                        folium.Marker(
+                            location=coords,
+                            popup=f'Species: {species_data["name"]}',
+                            icon=folium.Icon(color='green')
+                        ).add_to(m)
+
+        m = Markup(m._repr_html_())
+
+    return render_template("index.html", form=searchform, species_of_the_day=species, map=m)
 
 @species.route("/all-species")
 def all_species():
@@ -62,16 +86,40 @@ def user_detail(username):
     bytes_im = BytesIO(user.profile_pic.read())
     image = base64.b64encode(bytes_im.getvalue()).decode() if bytes_im else None
 
-    reviews = Comment.objects(commenter=user) if user else None
+    comments = Comment.objects(commenter=user) if user else None
 
-    return render_template("user_detail.html", error=error, username=username, image=image, reviews=reviews)
+    return render_template("user_detail.html", error=error, username=username, image=image, comments=comments)
 
-@species.route("/species-detail/<species_name>")
+@species.route("/species-detail/<species_name>", methods=["GET", "POST"])
 def species_detail(species_name):
-    image_url = get_image_url(species_name)
-    description = get_description(species_name)
-    species = species_client.get_species_by_name(species_name)
-    return render_template("species_detail.html", species=species, form=None, image_url=image_url, description=description)
+
+    try:
+        image_url = get_image_url(species_name)
+        description = get_description(species_name)
+        species = species_client.get_species_by_name(species_name)
+    except ValueError as e:
+        return render_template("species_detail.html", error_msg=str(e))
+
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(
+            commenter=current_user._get_current_object(),
+            content=form.text.data,
+            date=current_time(),
+            species_name=species_name,
+        )
+
+        comment.save()
+
+        # current_user.update(add_to_set__liked_species=species_name)
+        if species_name not in current_user.liked_species:
+            current_user.liked_species.append(species_name)
+            current_user.save()
+
+        return redirect(request.path)
+
+    comments = Comment.objects(species_name=species_name)
+    return render_template("species_detail.html", species=species, comment_form=form, image_url=image_url, description=description, comments=comments)
 
 
 def get_image_url(species_name):
@@ -127,3 +175,36 @@ def get_description(species_name):
     # Generate text based on the prompt
     return generate_text(prompt, api_key)["response"]
     
+def get_liked_species_locations(species_list):
+    countries = []
+    token = "9bb4facb6d23f48efbf424bb05c0c1ef1cf6f468393bc745d42179ac4aca5fee"
+    for species in species_list:
+        url = f"https://apiv3.iucnredlist.org/api/v3/species/countries/name/{species.replace(' ', '%20')}?token={token}"  # Update to the actual endpoint from the docs
+
+        headers = {
+            "accept": "application/json"  # Specify that we accept JSON responses
+        }
+
+        response = requests.get(url, headers=headers)
+        print(response.json())
+        if response.status_code == 200:
+            data = response.json()  # Parse JSON response if the request is successful
+        else:
+            print(f"Error: {response.status_code} - {response.text}")
+
+        countries.append(data)
+    return countries
+
+# Function to get coordinates for a country
+def get_coordinates(country_name):
+    geolocator = Nominatim(user_agent="species_locator")
+    try:
+        location = geolocator.geocode(country_name)
+        if location:
+            return (location.latitude, location.longitude)
+        else:
+            print(f"Coordinates not found for: {country_name}")
+            return None
+    except GeocoderTimedOut:
+        return get_coordinates(country_name)  # Retry if timed out
+

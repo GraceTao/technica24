@@ -125,7 +125,7 @@ def account():
            return redirect(url_for('species.user_detail', username=current_user.username, image=current_user.profile_pic))
        if refer_friend_form.submit_referral.data and refer_friend_form.validate():
            friend_email = refer_friend_form.friend_email.data
-           redirect_to_url = url_for('users.register', _external=True) # Customize your redirect URL
+           redirect_to_url = url_for('species.user_detail', username=current_user.username, image=current_user.profile_pic, _external=True) # Customize your redirect URL
            # Create a magic link for the friend
            magic_link = auth.create_magic_link(
                email=friend_email,

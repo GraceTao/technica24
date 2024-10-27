@@ -28,8 +28,46 @@
 
 </div>
 
-{% else %}
-<div>
-hi
-</div>
+{# Reviews #}
+  <div class="reviews">
+    <h1 class="reviews-title"> Comments
+      <small class="reviews-count"> {{ reviews | length }} reviews </small>
+    </h1>
+    <ul class="review-container">
+      {% for comment in comments %}
+        <li class="review flex gap-2">
+          <img class="h-20 w-20 rounded-lg" src="data:image/png;base64,{{comment.image}}" alt="" />
+          <div class="w-full">
+            <span class="review-date">{{ comment.date }}</span>
+            <a class="review-commenter" href="{{ url_for('species.user_detail', username=comment.commenter.username) }}">
+              @{{ comment.commenter.username }}
+            </a>
+            <p class="review-content">{{ comment.content }}</p>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if current_user.is_authenticated %}
+      {# Comment submission comment_form #}
+      <div class="container mx-auto">
+        <form method="POST" action="" class="review-form">
+          {{ comment_form.csrf_token }}
+          <div class="form-group review-input">
+            {{ comment_form.text.label }} {{ comment_form.text(class="form-content") }}
+            {% if comment_form.text.errors %}
+              <div class="error" role="alert">
+                {% for error in comment_form.text.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          {{ comment_form.submit(class="review-button") }}
+        </form>
+      </div>
+    {% endif %}
+  </div>
+  <div class="w-0 lg:w-96"></div>
+
 {% endif %} {% endblock content %}
