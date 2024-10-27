@@ -17,22 +17,19 @@ from datetime import datetime
 import os
 
 # local
-from .client import MovieClient
+from .client import SpeciesClient
 
 # update with your API Key
-OMDB_API_KEY = 'b2682722'
+IUCN_TOKEN = '9bb4facb6d23f48efbf424bb05c0c1ef1cf6f468393bc745d42179ac4aca5fee'
 
-# do not remove these 2 lines (required for autograder to work)
-if os.getenv('OMDB_API_KEY'):
-    OMDB_API_KEY = os.getenv('OMDB_API_KEY')
 
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
-movie_client = MovieClient(OMDB_API_KEY)
+species_client = SpeciesClient(IUCN_TOKEN)
 
 from .users.routes import users
-from .movies.routes import movies
+from .species.routes import movies
 
 
 def custom_404(e):
