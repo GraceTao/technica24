@@ -13,7 +13,7 @@ class Species(object):
         self.scientific_name = species_json["scientific_name"]
         self.taxonomic_authority = species_json["taxonomic_authority"]
         self.common_name = species_json["main_common_name"]
-        # self.img_url = self.get_species_image()
+        
 
     def __repr__(self):
         return self.scientific_name
@@ -24,6 +24,7 @@ class SpeciesClient(object):
         self.sess = requests.Session()
         self.base_url = f"https://apiv3.iucnredlist.org/api/v3/species/page/0?token={token}"
         self.species_list = self.fetch_all_species()
+        self.species_of_the_day = self.get_random_species()
 
     def fetch_all_species(self):
         # Fetch species list once during initialization
@@ -46,12 +47,12 @@ class SpeciesClient(object):
     
     def search_species(self, query):
         # Returns the top 10 matches based on the similarity ratio
-        scientific_names = [species.scientific_name for species in self.species_list]
+        common_names = [species.common_name for species in self.species_list]
 
         # Use RapidFuzz to find the top matches based on the scientific names
-        results = process.extract(query, scientific_names, scorer=fuzz.token_sort_ratio, limit=10)
+        results = process.extract(query, common_names, scorer=fuzz.token_sort_ratio, limit=10)
 
         # Retrieve the corresponding Species objects based on the matched indices
-        matched_species = [self.species_list[scientific_names.index(result[0])] for result in results]
+        matched_species = [self.species_list[common_names.index(result[0])] for result in results]
 
         return matched_species

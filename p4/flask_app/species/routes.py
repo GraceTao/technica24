@@ -33,8 +33,6 @@ def index():
 
     if searchform.validate_on_submit():
         return redirect(url_for("species.search_results", query=searchform.search_query.data))
-    
-    species = species_client.get_random_species()
 
     if current_user.is_authenticated:
         countries = get_liked_species_locations(current_user.liked_species)
@@ -56,7 +54,7 @@ def index():
 
         m = Markup(m._repr_html_())
 
-    return render_template("index.html", form=searchform, species_of_the_day=species, map=m)
+    return render_template("index.html", form=searchform, species_of_the_day=species_client.species_of_the_day, map=m)
 
 @species.route("/all-species")
 def all_species():

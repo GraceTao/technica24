@@ -3,10 +3,12 @@
   <div class="decoration-main-container"><div class="decoration-main"></div></div>
 
   {% if species_of_the_day %}
-  <div>
-    <h2 class="main-title">
-      Endangered Species of the Day: <b>{{ species_of_the_day.scientific_name }}</b>
-    </h2>
+  <div class="flex-1 main-title">
+    <h2>Endangered Species of the Day: </h2><br>
+    <div class="m-1.5">
+      <a class="review-button" href="{{ url_for('species.species_detail', species_name=species_of_the_day.scientific_name)}}">{{ species_of_the_day.scientific_name }}</a>
+    </div>
+    
   </div>
   {% endif %}
   <br>
