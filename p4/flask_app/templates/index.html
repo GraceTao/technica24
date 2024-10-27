@@ -8,13 +8,16 @@
     <div class="m-1.5">
       <a class="review-button" href="{{ url_for('species.species_detail', species_name=species_of_the_day.scientific_name)}}">{{ species_of_the_day.scientific_name }}</a>
     </div>
-    
   </div>
   {% endif %}
-  <br>
-  <br>
   {% if map %}
-  <div>{{ map | safe }}</div>
+  <div class="flex-1 map-label">
+    <p>Here's your favorite species!</p>
+    <p>These are the species you have commented on.</p>
+  </div>
+  <div class="w-1/2">{{ map | safe }}</div>
   {% endif %}
+  <br>
+  <br>
 </div>
 {% endblock %}

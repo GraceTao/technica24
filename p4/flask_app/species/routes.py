@@ -37,7 +37,7 @@ def index():
     if current_user.is_authenticated:
         countries = get_liked_species_locations(current_user.liked_species)
         print(current_user.liked_species)
-        m = folium.Map(zoom_start=3)
+        m = folium.Map(location=[0,0], zoom_start=3)
         for species_data in countries:
         # Add points for countries with the species
             for entry in species_data['result']:
