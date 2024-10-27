@@ -1,0 +1,35 @@
+{% extends "header.html" %} {% block content %}
+
+{% if error_msg %}
+  <b class="text-red-400">
+    {{ error_msg }}
+  </b>
+{% endif %}
+
+{% if species %}
+
+{# Display card for the movie details #}
+<div class="movie-container">
+  <ul class="movie-info">
+    <div class="movie-title"> {{ species.scientific_name }}
+      {% if species.common_name %}
+      <p class="movie-date"> &middot; {{ species.common_name }}</p>
+      {% endif %}
+    </div>
+    <img style="width:150%" src="{{ image_url }}" alt="image of {{ species.scientific_name }}"/>
+    <li class="opacity-40 md:px-4"><b>Kingdom name: </b> {{ species.kingdom_name }}</li>
+    <li class="opacity-40 md:px-4"><b>Phylum name: </b> {{ species.phylum_name }}</li>
+    <li class="opacity-40 md:px-4"><b>Class name: </b> {{ species.class_name }}</li>
+    <li class="opacity-40 md:px-4"><b>Family name: </b> {{ species.family_name }}</li>
+  </ul>
+  <div>
+    <b>{{description}}</b>
+  </div>
+
+</div>
+
+{% else %}
+<div>
+hi
+</div>
+{% endif %} {% endblock content %}

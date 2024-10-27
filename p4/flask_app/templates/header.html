@@ -1,9 +1,29 @@
 {% extends "base.html" %} {% block header %}
 <nav class="navbar flex w-full justify-between z-40">
-    <a class="m-5 navlink" href="{{ url_for('movies.index') }}">
-        <span class="hidden sm:block">movie-rater</span>
-        <span class="block sm:hidden">Home</span>
+    <a class="m-5 navlink" href="{{ url_for('species.all_species') }}">
+        <span class="hidden sm:block">Archive</span>
+        
     </a>
+    <a class="m-5 navlink" href="{{ url_for('species.index') }}">
+        <span class="block sm:block">Home</span>
+    </a>
+    {% if form %}
+    <form class="searchbar" action="/" method="POST">
+        {{ form.csrf_token }}
+        {{ form.search_query(class="form-control", placeholder="scientific or common name") }}
+    
+        {% if form.search_query.errors %}
+          <div class="error" role="alert">
+            {% for error in form.search_query.errors %}
+              <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+        
+        {{ form.submit(class="form-button") }}
+      </form>
+    {% endif %}
+    
     {% if current_user.is_authenticated %}
     <div class="flex">
         <a class="my-5 mr-5 ml-0 navlink" href="{{ url_for('users.account') }}">Account</a>

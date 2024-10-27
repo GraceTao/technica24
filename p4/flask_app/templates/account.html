@@ -1,5 +1,6 @@
 {% extends "header.html" %}
 {% block content %}
+
 <div class="container mx-auto w-full md:w-2/3 lg:w-1/3">
     {% if image %}
         {# Profile picture #}
@@ -52,7 +53,46 @@
     </form>
 </div>
 
+<div class="container mx-auto w-full md:w-2/3 lg:w-1/3">
+    <h3 class="text-xl">
+        Refer a Friend!
+    </h3>
+    <form class="review-form" method="POST" action="" enctype="multipart/form-data">
+        {{ refer_friend_form.csrf_token }}
+        {% if magic_link %}
+            <p>Share this link with your friend to join the community!</p>
+            <input id="magicLinkInput" type="text" value="{{ magic_link}}" readonly style="
+                    background-color: #444"/>
+            <button onclick="copyLink()">Copy Link</button>
+        {% endif %}
+ 
+ 
+        <script>
+            function copyLink() {
+                const linkInput = document.getElementById('magicLinkInput');
+                linkInput.select();
+                document.execCommand('copy');
+                document.getElementById('copyMessage').innerText = 'Magic link copied to clipboard!';
+            }
+        </script>
+ 
+ 
+        <div class="form-group">
+            {{ refer_friend_form.friend_email.label }}
+            {{ refer_friend_form.friend_email(class="form-content") }}
+            {% if refer_friend_form.friend_email.errors %}
+            <div class="error" role="alert">
+                {% for error in refer_friend_form.friend_email.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {{ refer_friend_form.submit_referral(class="review-button") }}
+    </form>
+ </div>
+
 <div class="flex justify-center">
-    <a class="my-5 mr-5 ml-0 navlink" href="{{ url_for('movies.user_detail', username=current_user.username) }}">Reviews</a>
+    <a class="my-5 mr-5 ml-0 navlink" href="{{ url_for('species.user_detail', username=current_user.username) }}">Reviews</a>
 </div>
 {% endblock %}

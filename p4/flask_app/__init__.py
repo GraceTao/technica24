@@ -29,7 +29,7 @@ bcrypt = Bcrypt()
 species_client = SpeciesClient(IUCN_TOKEN)
 
 from .users.routes import users
-from .species.routes import movies
+from .species.routes import species
 
 
 def custom_404(e):
@@ -48,7 +48,7 @@ def create_app(test_config=None):
     bcrypt.init_app(app)
 
     app.register_blueprint(users)
-    app.register_blueprint(movies)
+    app.register_blueprint(species)
     app.register_error_handler(404, custom_404)
 
     login_manager.login_view = "users.login"

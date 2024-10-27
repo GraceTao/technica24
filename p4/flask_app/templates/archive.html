@@ -1,0 +1,26 @@
+{% extends "header.html" %} {% block content %}
+
+{% if error_msg %}
+  <b class="text-red-400">
+    {{ error_msg }}
+  </b>
+{% endif %}
+
+<div class="results-container">
+  <div class="decoration-container"><div class="decoration"></div></div>
+  {% for result in results %}
+  <a 
+    href="{{ url_for('species.species_detail', species_name=result.scientific_name) }}"
+    class="group movie-card"
+  >
+    <!-- <img src="{{ result.poster_url }}" class="movie-card-img" alt="missing" /> -->
+    <h5 class="movie-card-content"> {{ result.scientific_name }}
+      {% if result.common_name %}
+      <span class="text-neutral-400 font-normal"> {{ result.common_name }} </span>
+      {% endif %}
+    </h5>
+  </a>
+  {% endfor %}
+</div>
+
+{% endblock %}

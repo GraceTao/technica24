@@ -73,3 +73,7 @@ class UpdateUsernameForm(FlaskForm):
 class UpdateProfilePicForm(FlaskForm):
     picture = FileField("Upload image", validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'Images only!')])
     submit_picture = SubmitField("Upload")
+
+class ReferFriendForm(FlaskForm):
+   friend_email = StringField('Friend\'s Email', validators=[InputRequired(), Email()])
+   submit_referral = SubmitField('Refer a Friend')
