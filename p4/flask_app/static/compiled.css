@@ -827,7 +827,7 @@ html {
   width: 100vw;
   overflow-x: hidden;
   --tw-bg-opacity: 1;
-  background-color: rgb(23 23 23 / var(--tw-bg-opacity));
+  background-color: rgb(100 200 100 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(245 245 245 / var(--tw-text-opacity));
 }
@@ -838,14 +838,14 @@ html {
   width: fit-content;
   border-radius: 9999px;
   --tw-bg-opacity: 1;
-  background-color: rgb(64 64 64 / var(--tw-bg-opacity));
+  background-color: rgb(244 164 96 / var(--tw-bg-opacity));
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
   font-weight: 700;
   --tw-text-opacity: 1;
-  color: rgb(229 229 229 / var(--tw-text-opacity));
+  color: rgb(250 250 250 / var(--tw-text-opacity));
   transition-duration: 300ms;
 }
 
@@ -908,18 +908,18 @@ html {
   margin-top: 1.5rem;
   margin-bottom: 3rem;
   width: 30rem;
-  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  /* background-image: linear-gradient(to right, var(--tw-gradient-stops));
   --tw-gradient-from: #fff var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   --tw-gradient-to: #525252 var(--tw-gradient-to-position);
   -webkit-background-clip: text;
-          background-clip: text;
+          background-clip: text; */
   text-align: center;
   font-size: 2.25rem;
   line-height: 2.5rem;
   font-weight: 700;
-  color: transparent;
+  color: green;
 }
 
 .searchbar {
@@ -952,9 +952,10 @@ html {
   border-radius: 9999px;
   border-width: 2px;
   border-color: rgb(82 82 82 / 0.5);
-  background-color: rgb(23 23 23 / 0.5);
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  background-color: rgb(255 255 255 / 0.5);
+  color: rgb(0 0 0/ 1);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
   --tw-backdrop-blur: blur(16px);
@@ -999,11 +1000,12 @@ html {
   border-radius: 0.5rem;
   border-width: 2px;
   border-color: rgb(82 82 82 / 0.5);
-  background-color: rgb(23 23 23 / 0.5);
+  background-color: rgb(255 255 255 / 1);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   padding-left: 1rem;
   padding-right: 1rem;
+  margin-bottom: 1rem;
   --tw-backdrop-blur: blur(16px);
   -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
@@ -1022,11 +1024,12 @@ html {
   top: 0.375rem;
   cursor: pointer;
   border-radius: 9999px;
-  background-color: rgb(82 82 82 / 0.5) !important;
+  background-color: rgb(244 164 96 / 1) !important;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  margin: 1rem;
   font-weight: 700;
   transition-duration: 300ms;
 }
@@ -1036,7 +1039,7 @@ html {
   --tw-scale-y: 1.05;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   --tw-bg-opacity: 1 !important;
-  background-color: rgb(115 115 115 / var(--tw-bg-opacity)) !important;
+  background-color: rgb(244 164 96 / var(--tw-bg-opacity)) !important;
 }
 
 .form-button:active {
@@ -1051,7 +1054,7 @@ html {
 .review-button {
   cursor: pointer;
   border-radius: 0.5rem;
-  background-color: rgb(82 82 82 / 0.5) !important;
+  background-color: rgb(244 164 96 / 0.5) !important;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
@@ -1062,7 +1065,7 @@ html {
 
 .review-button:hover {
   --tw-bg-opacity: 1 !important;
-  background-color: rgb(115 115 115 / var(--tw-bg-opacity)) !important;
+  background-color: rgb(244 164 96 / var(--tw-bg-opacity)) !important;
 }
 
 .review-button:active {
@@ -1085,7 +1088,7 @@ html {
 
 .movie-card:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(64 64 64 / var(--tw-bg-opacity));
+  background-color: rgb(244 164 96 / var(--tw-bg-opacity));
 }
 
 .movie-card-img {
@@ -1124,7 +1127,7 @@ html {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
   --tw-text-opacity: 1;
-  color: rgb(245 245 245 / var(--tw-text-opacity));
+  color: rgb(245 245 245 / 1);
 }
 
 @media (min-width: 768px) {
@@ -1150,7 +1153,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
   line-height: 2rem;
   font-weight: 700;
 }
@@ -1158,7 +1161,7 @@ html {
 @media (min-width: 768px) {
   .movie-title {
     position: absolute;
-    top: 1.5rem;
+    top: 5rem;
     left: 10rem;
     flex-direction: row;
   }
@@ -1166,11 +1169,12 @@ html {
 
 .movie-date {
   display: block;
-  font-size: 1.125rem;
+  font-style: italic;
+  font-size: 2rem;
   line-height: 1.75rem;
   font-weight: 400;
   --tw-text-opacity: 1;
-  color: rgb(163 163 163 / var(--tw-text-opacity));
+  color: rgb(0 128 0 / var(--tw-text-opacity));
 }
 
 @media (min-width: 768px) {
@@ -1285,7 +1289,7 @@ html {
   gap: 1rem;
   border-radius: 0.75rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(38 38 38 / var(--tw-bg-opacity));
+  background-color: rgb(250 250 250 / var(--tw-bg-opacity));
   padding: 1rem;
   padding-top: 0.5rem;
 }
@@ -1295,7 +1299,7 @@ html {
   flex-direction: column;
   gap: 0.5rem;
   --tw-text-opacity: 1;
-  color: rgb(212 212 212 / var(--tw-text-opacity));
+  color: rgb(0 128 0 / var(--tw-text-opacity));
 }
 
 .results-container {
@@ -1381,7 +1385,7 @@ html {
   width: 3000px;
   border-radius: 100%;
   --tw-bg-opacity: 1;
-  background-color: rgb(38 38 38 / var(--tw-bg-opacity));
+  background-color: rgb(200 200 200 / var(--tw-bg-opacity));
 }
 
 @media (min-width: 768px) {
@@ -1397,7 +1401,7 @@ html {
   width: 3000px;
   border-radius: 100%;
   --tw-bg-opacity: 1;
-  background-color: rgb(38 38 38 / var(--tw-bg-opacity));
+  background-color: rgb(250 255 250 / var(--tw-bg-opacity));
 }
 
 @media (min-width: 768px) {

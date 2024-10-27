@@ -7,7 +7,8 @@
 {% endif %}
 
 {% if species %}
-
+<br>
+<br>
 {# Display card for the movie details #}
 <div class="movie-container">
   <ul class="movie-info">
@@ -17,14 +18,14 @@
       {% endif %}
     </div>
     <img style="width:150%" src="{{ image_url }}" alt="image of {{ species.scientific_name }}"/>
-    <li class="opacity-40 md:px-4"><b>Kingdom name: </b> {{ species.kingdom_name }}</li>
-    <li class="opacity-40 md:px-4"><b>Phylum name: </b> {{ species.phylum_name }}</li>
-    <li class="opacity-40 md:px-4"><b>Class name: </b> {{ species.class_name }}</li>
-    <li class="opacity-40 md:px-4"><b>Family name: </b> {{ species.family_name }}</li>
-    <li class="opacity-40 md:px-4"><b>Genus name: </b> {{ species.genus_name }}</li>
-    <li class="opacity-40 md:px-4"><b>Taxonomic authority: </b> {{ species.taxonomic_authority }}</li>
+    <li class="md:px-4"><b>Kingdom name: </b> {{ species.kingdom_name }}</li>
+    <li class="md:px-4"><b>Phylum name: </b> {{ species.phylum_name }}</li>
+    <li class="md:px-4"><b>Class name: </b> {{ species.class_name }}</li>
+    <li class="md:px-4"><b>Family name: </b> {{ species.family_name }}</li>
+    <li class="md:px-4"><b>Genus name: </b> {{ species.genus_name }}</li>
+    <li class="md:px-4"><b>Taxonomic authority: </b> {{ species.taxonomic_authority }}</li>
   </ul>
-  <div>
+  <div >
     <b>{{description}}</b>
   </div>
 

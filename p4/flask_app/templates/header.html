@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block header %}
 <nav class="navbar flex w-full justify-between z-40">
+  <div class="flex">
     <a class="m-5 navlink" href="{{ url_for('species.all_species') }}">
         <span class="hidden sm:block">Archive</span>
         
@@ -7,6 +8,7 @@
     <a class="m-5 navlink" href="{{ url_for('species.index') }}">
         <span class="block sm:block">Home</span>
     </a>
+  </div>
     {% if form %}
     <form class="searchbar" action="/" method="POST">
         {{ form.csrf_token }}

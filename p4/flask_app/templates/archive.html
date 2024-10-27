@@ -6,6 +6,11 @@
   </b>
 {% endif %}
 
+<br>
+<br>
+<br>
+<br>
+
 <div class="results-container">
   <div class="decoration-container"><div class="decoration"></div></div>
   {% for result in results %}
@@ -16,7 +21,7 @@
     <!-- <img src="{{ result.poster_url }}" class="movie-card-img" alt="missing" /> -->
     <h5 class="movie-card-content"> {{ result.scientific_name }}
       {% if result.common_name %}
-      <span class="text-neutral-400 font-normal"> {{ result.common_name }} </span>
+      <span class="text-neutral-100 font-normal"> {{ result.common_name }} </span>
       {% endif %}
     </h5>
   </a>
